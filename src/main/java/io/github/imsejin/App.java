@@ -1,5 +1,7 @@
 package io.github.imsejin;
 
+import io.github.imsejin.bytecode.Bytecode;
+
 /**
  * Hello world!
  *
@@ -8,8 +10,9 @@ package io.github.imsejin;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         printClassLoaders();
+        new Bytecode().play();
     }
 
     /*
@@ -46,4 +49,3 @@ public class App {
     }
 
 }
- 
