@@ -1,4 +1,4 @@
-package io.github.imsejin.bytecode.model;
+package io.github.imsejin.model;
 
 public class Book {
 

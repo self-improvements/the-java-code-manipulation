@@ -1,18 +1,22 @@
 package io.github.imsejin;
 
-import io.github.imsejin.bytecode.Bytecode;
+import io.github.imsejin.model.Book;
 
 /**
- * Hello world!
+ * Application
+ *
+ * <p> -javaagent:./the-java-code-manipulation/java-agent/target/java-agent-0.1.0.jar
  *
  * @see <a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-5.html">Loading, Linking, and Initializing</a>
  * @see <a href="https://javacan.tistory.com/entry/1">동적인 클래스 로딩과 클래스로더</a>
  */
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         printClassLoaders();
-        new Bytecode().play();
+
+        // null이어야 하는데 java-agent가 그 값을 변경했다.
+        System.out.println(new Book().getContent());
     }
 
     /*
@@ -43,9 +47,9 @@ public class App {
     private static void printClassLoaders() {
         ClassLoader classLoader = App.class.getClassLoader();
 
-        System.out.println(classLoader); // ClassLoaders$AppClassLoader
-        System.out.println(classLoader.getParent()); // ClassLoaders$PlatformClassLoader
-        System.out.println(classLoader.getParent().getParent()); // null
+        System.out.printf("Application Class Loader: %s\n", classLoader); // ClassLoaders$AppClassLoader
+        System.out.printf("Platform Class Loader: %s\n", classLoader.getParent()); // ClassLoaders$PlatformClassLoader
+        System.out.printf("Bootstrap Class Loader: %s\n", classLoader.getParent().getParent()); // null
     }
 
 }

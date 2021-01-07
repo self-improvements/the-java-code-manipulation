@@ -6,7 +6,11 @@
 
     <groupId>io.github.imsejin</groupId>
     <artifactId>the-java-code-manipulation</artifactId>
+    <packaging>pom</packaging>
     <version>0.1.0</version>
+    <modules>
+        <module>java-agent</module>
+    </modules>
 
     <name>the-java-code-manipulation</name>
     <url>https://github.com/ImSejin/the-java-code-manipulation</url>
@@ -17,25 +21,62 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Byte Buddy -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>1.10.19</version>
+            </dependency>
+
+            <!-- Common Utils -->
+            <dependency>
+                <groupId>io.github.imsejin</groupId>
+                <artifactId>common-utils</artifactId>
+                <version>0.3.3</version>
+            </dependency>
+
+            <!-- Junit 5 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.7.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>5.7.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- AssertJ -->
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.17.2</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- Byte Buddy -->
+        <!-- Common Utils -->
         <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>1.10.19</version>
+            <groupId>io.github.imsejin</groupId>
+            <artifactId>common-utils</artifactId>
         </dependency>
 
         <!-- Junit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -43,7 +84,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.17.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
