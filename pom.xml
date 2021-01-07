@@ -30,6 +30,13 @@
                 <version>1.10.19</version>
             </dependency>
 
+            <!-- CGlib -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+
             <!-- Common Utils -->
             <dependency>
                 <groupId>io.github.imsejin</groupId>
@@ -62,6 +69,18 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Byte Buddy -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+        </dependency>
+
+        <!-- CGlib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+        </dependency>
+
         <!-- Common Utils -->
         <dependency>
             <groupId>io.github.imsejin</groupId>

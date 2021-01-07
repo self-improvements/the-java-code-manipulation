@@ -19,11 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- Byte Buddy -->
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

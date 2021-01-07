@@ -12,9 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BankServiceTest {
 
+    // Proxy: Java Dynamic Proxy로 인터페이스를 구현하는 프록시 만들기.
     private final BankService bankService = (BankService) Proxy.newProxyInstance(BankService.class.getClassLoader(),
             new Class[]{BankService.class},
             new InvocationHandler() {
+                // Read Subject
                 private final BankService bankService = new BankServiceImpl();
 
                 @Override
