@@ -7,7 +7,67 @@ import java.util.Arrays;
 /**
  * Application
  *
- * <p> -javaagent:./the-java-code-manipulation/java-agent/target/java-agent-0.1.0.jar
+ * <p> JVM 구조
+ * <pre>
+ *                +------------Class Loader System-------------+
+ *                | +---------+  +---------+  +--------------+ |
+ *                | |         |  |         |  |              | |
+ *                | | Loading ---> Linking ---> Initializing | |
+ *                | |         |  |         |  |              | |
+ *                | +---------+  +---------+  +--------------+ |
+ *                +----------------------+---------------------+
+ *                                       |
+ *                                       |
+ *                                       |
+ * +----------------------------------Memory-------------------------------------+
+ * |            +---------------------+  +---------------+                       |
+ * | +-------+  |                     |  |               |  +------+  +--------+ |
+ * | |       |  | PC(Program Counter) |  | Native Method |  |      |  |        | |
+ * | | Stack --->      Registers      --->     Stack     ---> Heap ---> Method | |
+ * | |       |  |                     |  |               |  |      |  |        | |
+ * | +-------+  +---------------------+  +---------------+  +------+  +--------+ |
+ * +--------------------------------------+--------------------------------------+
+ *                                        |
+ *                         +---------------------------------+
+ *                         |                                 |
+ * +---------------Execution Engine----------------+   +-----|-----+ +-----------+
+ * | +-------------+  +--------------+  +--------+ |   |           | |           |
+ * | |             |  |              |  |        | |   |   Java    | |  Native   |
+ * | | Interpreter ---> JIT Compiler --->   GC   | -----  Native   ---  Method   |
+ * | |             |  |              |  |        | |   | Interface | | Libraries |
+ * | +-------------+  +--------------+  +--------+ |   |           | |           |
+ * +-----------------------------------------------+   +-----------+ +-----------+
+ * </pre>
+ *
+ * <h2>Memory</h2>
+ * <dl>
+ *     <dt>Stack</dt>
+ *     <dd>쓰레드마다 런타임 스택을 생성함. 그 안에 메서드 호출을 Stack Frame이라는 Block으로 쌓는다. 쓰레드가 종료되면 스택도 사라진다.</dd>
+ *
+ *     <dt>PC Registers</dt>
+ *     <dd>쓰레드마다 쓰레드 내 현재 실행할 Stack Frame을 가리키는 포인터가 생성되는 곳.</dd>
+ *
+ *     <dt>Native Method Stack</dt>
+ *     <dd>JNI의 메서드를 호출할 때마다 생성하는 런타임 스택을 저장하는 곳.</dd>
+ *
+ *     <dt>Method</dt>
+ *     <dd>클래스 정보(클래스명, 부모 클래스명, 메서드, 변수 등)를 저장/공유하는 곳.</dd>
+ *
+ *     <dt>Heap</dt>
+ *     <dd>객체를 저장/공유하는 곳.</dd>
+ * </dl>
+ *
+ * <h2>Execution Engine</h2>
+ * <dl>
+ *     <dt>Interpreter</dt>
+ *     <dd>바이트코드를 한 줄씩 실행.</dd>
+ *
+ *     <dt>Just In Time Compiler</dt>
+ *     <dd>인터프리터 효율을 높이기 위해, 인터프리터가 중복 코드를 발견하면 JIT 컴파일러로 이를 native code로 변경한다. 이후부터 인터프러터는 해당 native code로 컴파일된 코드를 바로 사용한다.</dd>
+ *
+ *     <dt>Garbage Collector</dt>
+ *     <dd>참조하지 않는 객체를 모아서 정리하여 시스템에 메모리를 반환한다.</dd>
+ * </dl>
  *
  * @see <a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-5.html">Loading, Linking, and Initializing</a>
  * @see <a href="https://javacan.tistory.com/entry/1">동적인 클래스 로딩과 클래스로더</a>
@@ -18,6 +78,7 @@ public class App {
         printClassLoaders();
 
         // null이어야 하는데 java-agent가 그 값을 변경했다.
+        // -javaagent:./the-java-code-manipulation/java-agent/target/java-agent-0.1.0.jar
         System.out.println(new Book().getContent());
 
         reflection(Book.class);
