@@ -19,6 +19,8 @@ import static net.bytebuddy.matcher.ElementMatchers.named;
 public class Agent {
 
     /**
+     * ClassLoader가 클래스를 읽어올 때, javaagent를 거쳐서 변경된 bytecode를 읽어들여 사용한다.
+     *
      * @see <a href="https://www.infoq.com/articles/Easily-Create-Java-Agents-with-ByteBuddy/">Easily Create Java Agents with ByteBuddy</a>
      */
     public static void premain(String agentArgs, Instrumentation inst) {

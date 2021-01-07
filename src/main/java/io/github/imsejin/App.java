@@ -2,6 +2,8 @@ package io.github.imsejin;
 
 import io.github.imsejin.model.Book;
 
+import java.util.Arrays;
+
 /**
  * Application
  *
@@ -17,6 +19,8 @@ public class App {
 
         // null이어야 하는데 java-agent가 그 값을 변경했다.
         System.out.println(new Book().getContent());
+
+        reflection(Book.class);
     }
 
     /*
@@ -50,6 +54,10 @@ public class App {
         System.out.printf("Application Class Loader: %s\n", classLoader); // ClassLoaders$AppClassLoader
         System.out.printf("Platform Class Loader: %s\n", classLoader.getParent()); // ClassLoaders$PlatformClassLoader
         System.out.printf("Bootstrap Class Loader: %s\n", classLoader.getParent().getParent()); // null
+    }
+
+    private static <T> void reflection(Class<T> clazz) {
+        Arrays.stream(clazz.getDeclaredFields()).forEach(System.out::println);
     }
 
 }
