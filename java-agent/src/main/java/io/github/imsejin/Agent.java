@@ -24,9 +24,7 @@ public class Agent {
      * @see <a href="https://www.infoq.com/articles/Easily-Create-Java-Agents-with-ByteBuddy/">Easily Create Java Agents with ByteBuddy</a>
      */
     public static void premain(String agentArgs, Instrumentation inst) {
-        AgentBuilder.Default agentBuilder = new AgentBuilder.Default();
-
-        agentBuilder.type(any())
+        new AgentBuilder.Default().type(any())
                 .transform((builder, typeDescription, classLoader, javaModule) -> builder
                         .method(named("getContent"))
                         .intercept(value("This is a content.")))
