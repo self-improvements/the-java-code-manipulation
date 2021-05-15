@@ -1,9 +1,11 @@
 package io.github.imsejin.example;
 
-import io.github.imsejin.annotation.Magic;
 import io.github.imsejin.example.model.Book;
+import io.github.imsejin.example.model.MagicalFactory;
+import io.github.imsejin.example.model.MagicalFactory$Impl;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Application
@@ -73,11 +75,16 @@ import java.util.Arrays;
  * @see <a href="https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-5.html">Loading, Linking, and Initializing</a>
  * @see <a href="https://javacan.tistory.com/entry/1">동적인 클래스 로딩과 클래스로더</a>
  */
-@Magic
 public class App {
 
     public static void main(String[] args) {
         printClassLoaders();
+
+        // JavaPoet이 "MagicalFactory$Impl" 클래스를 annotation processor를 이용하여 생성한다.
+        MagicalFactory magicalFactory = new MagicalFactory$Impl();
+        UUID uuid = UUID.randomUUID();
+        int numOfDigits = magicalFactory.findNumOfDigits(uuid.toString());
+        System.out.printf("uuid: %s, numOfDigits: %,d%n", uuid, numOfDigits);
 
         // null이어야 하는데 java-agent가 그 값을 변경했다.
         // -javaagent:./the-java-code-manipulation/java-agent/target/java-agent-0.1.0.jar
