@@ -45,6 +45,7 @@
                 <version>0.3.3</version>
             </dependency>
 
+            <!-- Local annotation processor -->
             <dependency>
                 <groupId>io.github.imsejin</groupId>
                 <artifactId>java-agent</artifactId>
